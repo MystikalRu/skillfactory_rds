@@ -32,5 +32,23 @@ def game_core_v2(number):
         predict = np.random.randint(min_number,max_number) # попытка угадать число с новыми границами
     return(count) # выход из цикла, если угадали
 
+def game_core_v3(number):
+    '''Сначала устанавливаем любое random число, а потом уменьшаем или увеличиваем его в зависимости от того, больше оно или меньше нужного.
+       Функция принимает загаданное число и возвращает число попыток'''
+    count = 1
+    min_number = 1 #задаем нижнюю границу поиска
+    max_number = 101 # задаем верхнюю границу поиска
+    predict = np.random.randint(1,101) # первый раз пытаемся угадать число
+    
+    while number != predict:
+        count+=1
+        if number > predict: 
+            min_number = predict # Если предпологаемое число меньше загаданого то меняем нижнюю границу поиска
+        elif number < predict: 
+            max_number = predict # Если предпологаемое число больше загаданого то меняем верхнюю границу поиска
+        #predict = np.random.randint(min_number,max_number) # попытка угадать число с новыми границами
+        predict = min_number + (max_number-min_number)//2
+    return(count) # выход из цикла, если угадали
+
 # Проверяем
-score_game(game_core_v2)
+score_game(game_core_v3)
